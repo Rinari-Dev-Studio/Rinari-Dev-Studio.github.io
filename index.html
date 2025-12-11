@@ -1,170 +1,180 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rinari Dev Studio | Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rinari Dev Studio | Portfolio</title>
+    
+    <style>
+        /* =================== GLOBAL STYLES =================== */
+        body {
+            margin: 0;
+            background-color: #0c0c10; /* Noch dunklerer Hintergrund (fast schwarz) */
+            font-family: 'Inter', -apple-system, Roboto, sans-serif;
+            color: #d0d0d0; /* Helles Grau für gute Lesbarkeit */
+            line-height: 1.5;
+            font-size: 16px; /* Standard-Schriftgröße leicht reduziert */
+        }
 
-    <style>
-        /* =================== GLOBAL STYLES =================== */
-        body {
-            margin: 0;
-            background-color: #0f0f14;
-            font-family: 'Inter', -apple-system, Roboto, sans-serif; /* Inter ist eine beliebte Entwickler-Schrift */
-            color: #e0e0e0; /* Etwas helleres Weiß */
-            line-height: 1.6;
-        }
+        /* =================== HEADER / BANNER =================== */
+        .header {
+            width: 100%;
+            height: 240px; /* Deutlich niedriger, kompakter */
+            background-image: url("rinari-banner.png");
+            background-size: cover;
+            background-position: center 30%;
+            display: flex;
+            align-items: center;
+            padding-left: 4%;
+            position: relative;
+        }
+        
+        /* Overlay beibehalten */
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Etwas dunklerer Overlay */
+            z-index: 1;
+        }
 
-        /* =================== HEADER / BANNER =================== */
-        .header {
-            width: 100%;
-            height: 320px; /* Etwas höher für mehr Präsenz */
-            background-image: url("rinari-banner.png");
-            background-size: cover;
-            background-position: center 30%;
-            display: flex;
-            align-items: center;
-            padding-left: 5%;
-            position: relative;
-        }
-        
-        /* Subtiler Overlay für bessere Lesbarkeit des Logos */
-        .header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1;
-        }
+        .header-logo {
+            height: 120px; /* Logo etwas kleiner */
+            z-index: 2;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+        }
 
-        .header-logo {
-            height: 160px; /* Logo etwas größer */
-            z-index: 2; /* Logo über dem Overlay */
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
-        }
+        /* =================== CONTENT SECTIONS =================== */
+        .section {
+            max-width: 900px; /* Max-Breite reduziert (vorher 1000px) */
+            margin: 60px auto; /* Etwas weniger Abstand, kompakter */
+            padding: 0 30px;
+        }
 
-        /* =================== CONTENT SECTIONS =================== */
-        .section {
-            max-width: 1000px;
-            margin: 80px auto; /* Mehr Abstand zwischen den Sektionen */
-            padding: 0 20px;
-        }
+        .section h2 {
+            font-size: 32px; /* Titelgröße reduziert (vorher 40px) */
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #a389f4; /* Neues, etwas dunkleres Lila */
+            text-align: left; /* Titel wieder linksbündig für den "Website"-Look */
+            border-bottom: 2px solid #a389f4;
+            padding-bottom: 8px;
+            width: fit-content; /* Border nur unter dem Text */
+        }
 
-        .section h2 {
-            font-size: 40px; /* Größerer Titel für mehr Impact */
-            font-weight: 700;
-            margin-bottom: 40px;
-            color: #9c7ff2; /* Ein professionelleres, kühleres Lila */
-            text-align: center;
-            border-bottom: 3px solid #9c7ff2; /* Dezenter, farbiger Separator */
-            padding-bottom: 10px;
-        }
+        .description {
+            font-size: 1.05em; /* Etwas kleinere Schrift */
+            text-align: left;
+            margin: 0 0 40px 0;
+            color: #b8b8b8;
+            max-width: 800px;
+        }
 
-        .description { /* Neue Klasse für die Beschreibung */
-            font-size: 1.15em;
-            text-align: center;
-            margin: 0 auto 50px auto;
-            color: #b0b0b0;
-            max-width: 800px;
-        }
+        /* =================== IMAGE LAYOUT =================== */
+        .project-images {
+            display: grid; /* Wechsel zu CSS Grid für präzisere Kontrolle */
+            grid-template-columns: 1fr 1fr; /* Zwei Spalten */
+            gap: 20px;
+            align-items: start;
+        }
+        
+        /* Das Hauptbild soll größer sein, aber nur eine Spalte einnehmen */
+        .main-image {
+            max-width: 100%; 
+            grid-column: 1 / 2; /* Hauptbild in die erste Spalte */
+            grid-row: 1 / 3; /* Hauptbild über 2 Reihen erstrecken */
+            max-height: 550px; /* Maximale Höhe, um nicht zu massiv zu werden */
+            object-fit: contain; /* Bild wird angepasst, ohne es zu beschneiden */
+        }
 
-        /* =================== IMAGE LAYOUT =================== */
-        .project-images {
-            display: flex;
-            flex-wrap: wrap; /* Wichtig, damit die Detailbilder umbrechen */
-            justify-content: center;
-            gap: 30px; /* Etwas mehr Abstand zwischen den Bildern */
-        }
+        /* Die Detailbilder sollen kleiner sein und in der zweiten Spalte gestapelt werden */
+        .detail-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px; /* Etwas kleinerer Radius für kompakteren Look */
+        }
 
-        .project-images img {
-            width: auto; /* Wird durch max-width definiert */
-            border-radius: 18px; /* Modernerer, größerer Radius */
-            object-fit: cover;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Schöner Schatten */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Übergang für Hover-Effekt */
-        }
+        .project-images img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8); /* Dunklerer Schatten */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-        .project-images img:hover {
-            transform: translateY(-5px); /* Kleiner "Pop-out" Effekt beim Hovern */
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-        }
+        .project-images img:hover {
+            transform: scale(1.02); /* Kleinerer Zoom-Effekt */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+        }
 
-        /* Anforderung 1: Hauptbild GRÖSSER */
-        .main-image {
-            max-width: 500px; /* Deutlich größer als zuvor (max-width war 260px) */
-            flex-basis: 100%; /* Nimmt 100% der Breite ein, um die Detailbilder in die nächste Reihe zu schieben */
-            margin-bottom: 20px;
-        }
+        /* =================== RESPONSIVE DESIGN =================== */
+        @media (max-width: 700px) {
+            .section {
+                margin: 40px auto;
+                padding: 0 15px;
+            }
+            .section h2 {
+                font-size: 28px;
+            }
+            .header {
+                height: 180px;
+            }
+            .header-logo {
+                height: 90px;
+            }
 
-        /* Anforderung 2: Detailbilder KLEINER */
-        .detail-image {
-            max-width: 220px; /* Kleiner als die ursprünglichen 260px */
-            margin-top: 10px; /* Etwas Platz zur Hauptansicht */
-        }
-        
-        /* =================== RESPONSIVE DESIGN =================== */
-        @media (max-width: 768px) {
-            .header {
-                height: 200px;
-                align-items: flex-end; /* Logo auf kleineren Screens nach unten schieben */
-                padding-bottom: 20px;
-            }
-            .header-logo {
-                height: 100px;
-            }
-            .section h2 {
-                font-size: 32px;
-            }
-            .main-image {
-                max-width: 100%; /* Hauptbild nimmt die volle Breite ein */
-            }
-            .detail-image {
-                max-width: 45%; /* Detailbilder nebeneinander, aber kleiner */
-                flex-basis: auto;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .detail-image {
-                max-width: 100%; /* Auf sehr kleinen Screens untereinander */
-            }
-        }
-    </style>
+            /* Auf kleinen Bildschirmen alles untereinander stapeln */
+            .project-images {
+                grid-template-columns: 1fr; /* Nur eine Spalte */
+                gap: 15px;
+            }
+            .main-image {
+                grid-column: auto;
+                grid-row: auto;
+                max-height: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-        <div class="header">
-        <img src="rinari-logo.png" class="header-logo" alt="Rinari Logo">
-    </div>
+    <div class="header">
+        <img src="rinari-logo.png" class="header-logo" alt="Rinari Logo">
+    </div>
 
-        <div class="section">
-        <h2>LittleTrack</h2>
-        <p class="description">LittleTrack ist eine innovative App, die entwickelt wurde, um Ihnen bei der Organisation und Verfolgung Ihrer täglichen Aufgaben und Projekte zu helfen. Eine klare Benutzeroberfläche sorgt für maximale Produktivität. (Bitte ersetze diesen Text durch deine tatsächliche Beschreibung!)</p>
-        <div class="project-images">
-            <img src="littletrack-main.png" class="main-image" alt="LittleTrack Hauptbild">
-            <img src="littletrack-detail1.png" class="detail-image" alt="LittleTrack Detail 1">
-            <img src="littletrack-detail2.png" class="detail-image" alt="LittleTrack Detail 2">
-        </div>
-    </div>
+    <div class="section">
+        <h2>LittleTrack</h2>
+        <p class="description">
+            LittleTrack ist eine innovative App, die entwickelt wurde, um Ihnen bei der Organisation und Verfolgung Ihrer täglichen Aufgaben und Projekte zu helfen. Eine klare Benutzeroberfläche sorgt für maximale Produktivität.
+        </p>
+        <div class="project-images">
+            <img src="littletrack-main.png" class="main-image" alt="LittleTrack Hauptbild">
+            
+            <img src="littletrack-detail1.png" class="detail-image" alt="LittleTrack Detail 1">
+            <img src="littletrack-detail2.png" class="detail-image" alt="LittleTrack Detail 2">
+        </div>
+    </div>
 
-        <div class="section">
-        <h2>Rkord</h2>
-        <p class="description">Rkord ermöglicht das einfache Aufzeichnen und Verwalten von Audio-Clips. Ideal für schnelles Notieren von Ideen oder kurzen Interviews. Die Cloud-Synchronisierung hält Ihre Aufnahmen überall verfügbar. (Bitte ersetze diesen Text durch deine tatsächliche Beschreibung!)</p>
-        <div class="project-images">
-            <img src="rkord-main.png" class="main-image" alt="Rkord Hauptbild">
-            <img src="rkord-record.png" class="detail-image" alt="Rkord Aufnahmebild">
-            <img src="rkord-clips.png" class="detail-image" alt="Rkord Clips Übersicht">
-        </div>
-    </div>
-    
-        <footer style="text-align: center; padding: 40px 0; color: #555; font-size: 0.9em;">
-        &copy; 2025 Rinari Dev Studio | Erstellt mit ❤️
-    </footer>
+    <div class="section">
+        <h2>Rkord</h2>
+        <p class="description">
+            Rkord ermöglicht das einfache Aufzeichnen und Verwalten von Audio-Clips. Ideal für schnelles Notieren von Ideen oder kurzen Interviews. Die Cloud-Synchronisierung hält Ihre Aufnahmen überall verfügbar.
+        </p>
+        <div class="project-images">
+            <img src="rkord-main.png" class="main-image" alt="Rkord Hauptbild">
+
+            <img src="rkord-record.png" class="detail-image" alt="Rkord Aufnahmebild">
+            <img src="rkord-clips.png" class="detail-image" alt="Rkord Clips Übersicht">
+        </div>
+    </div>
+    
+    <footer style="text-align: center; padding: 30px 0; color: #444; font-size: 0.85em; border-top: 1px solid #1a1a20;">
+        &copy; 2025 Rinari Dev Studio | Portfolio
+    </footer>
 
 </body>
 </html>
