@@ -3,178 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rinari Dev Studio | Portfolio</title>
-    
+    <title>Rinari Dev Studio</title>
+
     <style>
-        /* =================== GLOBAL STYLES =================== */
         body {
             margin: 0;
-            background-color: #0c0c10; /* Noch dunklerer Hintergrund (fast schwarz) */
-            font-family: 'Inter', -apple-system, Roboto, sans-serif;
-            color: #d0d0d0; /* Helles Grau für gute Lesbarkeit */
-            line-height: 1.5;
-            font-size: 16px; /* Standard-Schriftgröße leicht reduziert */
+            background-color: #0f0f14;
+            font-family: -apple-system, Inter, Roboto, sans-serif;
+            color: white;
+            overflow-x: hidden;
         }
 
-        /* =================== HEADER / BANNER =================== */
+        /* ---------------- HEADER ---------------- */
         .header {
             width: 100%;
-            height: 240px; /* Deutlich niedriger, kompakter */
+            height: 260px;
             background-image: url("rinari-banner.png");
             background-size: cover;
-            background-position: center 30%;
+            background-position: center;
             display: flex;
             align-items: center;
-            padding-left: 4%;
-            position: relative;
-        }
-        
-        /* Overlay beibehalten */
-        .header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Etwas dunklerer Overlay */
-            z-index: 1;
+            padding-left: 40px;
         }
 
         .header-logo {
-            height: 120px; /* Logo etwas kleiner */
-            z-index: 2;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            height: 140px;
         }
 
-        /* =================== CONTENT SECTIONS =================== */
-        .section {
-            max-width: 900px; /* Max-Breite reduziert (vorher 1000px) */
-            margin: 60px auto; /* Etwas weniger Abstand, kompakter */
+        /* ---------------- HOME VIEW ---------------- */
+        #home-view {
+            display: flex;
+            max-width: 1100px;
+            margin: 60px auto;
             padding: 0 30px;
+            position: relative;
         }
 
-        .section h2 {
-            font-size: 32px; /* Titelgröße reduziert (vorher 40px) */
-            font-weight: 600;
+        /* Left side about */
+        .about {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .about h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #cdbdff;
+        }
+
+        .about .subline {
+            font-size: 18px;
             margin-bottom: 25px;
-            color: #a389f4; /* Neues, etwas dunkleres Lila */
-            text-align: left; /* Titel wieder linksbündig für den "Website"-Look */
-            border-bottom: 2px solid #a389f4;
-            padding-bottom: 8px;
-            width: fit-content; /* Border nur unter dem Text */
+            color: #aaa4ff;
         }
 
-        .description {
-            font-size: 1.05em; /* Etwas kleinere Schrift */
-            text-align: left;
-            margin: 0 0 40px 0;
-            color: #b8b8b8;
-            max-width: 800px;
+        .about p {
+            font-size: 16px;
+            max-width: 420px;
+            line-height: 1.5;
+            color: #d8d8d8;
         }
 
-        /* =================== IMAGE LAYOUT =================== */
-        .project-images {
-            display: grid; /* Wechsel zu CSS Grid für präzisere Kontrolle */
-            grid-template-columns: 1fr 1fr; /* Zwei Spalten */
-            gap: 20px;
-            align-items: start;
-        }
-        
-        /* Das Hauptbild soll größer sein, aber nur eine Spalte einnehmen */
-        .main-image {
-            max-width: 100%; 
-            grid-column: 1 / 2; /* Hauptbild in die erste Spalte */
-            grid-row: 1 / 3; /* Hauptbild über 2 Reihen erstrecken */
-            max-height: 550px; /* Maximale Höhe, um nicht zu massiv zu werden */
-            object-fit: contain; /* Bild wird angepasst, ohne es zu beschneiden */
+        /* Background watermark */
+        .about-bg {
+            position: absolute;
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.06;
+            width: 480px;
+            pointer-events: none;
         }
 
-        /* Die Detailbilder sollen kleiner sein und in der zweiten Spalte gestapelt werden */
-        .detail-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px; /* Etwas kleinerer Radius für kompakteren Look */
+        /* Right side cards */
+        .cards {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            padding-left: 40px;
         }
 
-        .project-images img {
+        .card {
+            background-color: #18191f;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #22232a;
+        }
+
+        .card:hover {
+            background-color: #202128;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 22px;
+            color: #cdbdff;
+        }
+
+        .card p {
+            margin: 6px 0 0;
+            color: #bcbcbc;
+            font-size: 14px;
+        }
+
+        /* ---------------- SLIDE PANELS ---------------- */
+        .panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
             width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8); /* Dunklerer Schatten */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            background-color: #0f0f14;
+            overflow-y: auto;
+            transition: all 0.45s ease;
+            padding: 30px;
+            box-sizing: border-box;
+            z-index: 99;
         }
 
-        .project-images img:hover {
-            transform: scale(1.02); /* Kleinerer Zoom-Effekt */
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+        .panel.active {
+            right: 0;
         }
 
-        /* =================== RESPONSIVE DESIGN =================== */
-        @media (max-width: 700px) {
-            .section {
-                margin: 40px auto;
-                padding: 0 15px;
-            }
-            .section h2 {
-                font-size: 28px;
-            }
-            .header {
-                height: 180px;
-            }
-            .header-logo {
-                height: 90px;
-            }
+        .back-btn {
+            font-size: 18px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            color: #cdbdff;
+        }
 
-            /* Auf kleinen Bildschirmen alles untereinander stapeln */
-            .project-images {
-                grid-template-columns: 1fr; /* Nur eine Spalte */
-                gap: 15px;
-            }
-            .main-image {
-                grid-column: auto;
-                grid-row: auto;
-                max-height: none;
-            }
+        /* ---------------- PANEL CONTENT ---------------- */
+
+        /* LittleTrack fullscreen */
+        .lt-full img {
+            width: 100%;
+            max-width: 820px;
+            display: block;
+            margin: 0 auto;
+            border-radius: 16px;
+        }
+
+        /* Rkord: three images side-by-side */
+        .rkord-three {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .rkord-three img {
+            width: 30%;
+            max-width: 280px;
+            border-radius: 16px;
+        }
+
+        /* Kontakt Panel */
+        .contact-info {
+            max-width: 500px;
+            margin: 60px auto;
+            text-align: center;
+            line-height: 2;
+        }
+
+        .contact-info a {
+            color: #cdbdff;
+            text-decoration: none;
+            font-size: 20px;
         }
     </style>
 </head>
 
 <body>
 
+    <!-- ---------------- HEADER ---------------- -->
     <div class="header">
         <img src="rinari-logo.png" class="header-logo" alt="Rinari Logo">
     </div>
 
-    <div class="section">
-        <h2>LittleTrack</h2>
-        <p class="description">
-            LittleTrack ist eine innovative App, die entwickelt wurde, um Ihnen bei der Organisation und Verfolgung Ihrer täglichen Aufgaben und Projekte zu helfen. Eine klare Benutzeroberfläche sorgt für maximale Produktivität.
-        </p>
-        <div class="project-images">
-            <img src="littletrack-main.png" class="main-image" alt="LittleTrack Hauptbild">
-            
-            <img src="littletrack-detail1.png" class="detail-image" alt="LittleTrack Detail 1">
-            <img src="littletrack-detail2.png" class="detail-image" alt="LittleTrack Detail 2">
+    <!-- ---------------- HOME VIEW ---------------- -->
+    <div id="home-view">
+        <!-- LEFT ABOUT -->
+        <div class="about">
+            <h1>Rinari Dev Studio</h1>
+            <div class="subline">Android Development · Kotlin · Jetpack Compose</div>
+            <p>
+                Rinari Dev Studio entwickelt moderne Android-Apps mit Fokus auf klarer Architektur,
+                sauberem Kotlin-Code und ästhetischem UI/UX. Spezialisiert auf Jetpack Compose,
+                strukturierte App-Konzepte und minimalistische Designs.
+            </p>
+        </div>
+
+        <!-- BACKGROUND WATERMARK (super subtle) -->
+        <img src="rkord-main.png" class="about-bg">
+
+        <!-- RIGHT CARDS -->
+        <div class="cards">
+            <div class="card" onclick="openPanel('lt-panel')">
+                <h3>LittleTrack</h3>
+                <p>Portfolio ansehen</p>
+            </div>
+
+            <div class="card" onclick="openPanel('rkord-panel')">
+                <h3>Rkord</h3>
+                <p>Audio Recorder Projekt</p>
+            </div>
+
+            <div class="card" onclick="openPanel('contact-panel')">
+                <h3>Kontakt</h3>
+                <p>GitHub · LinkedIn · Mail</p>
+            </div>
         </div>
     </div>
 
-    <div class="section">
-        <h2>Rkord</h2>
-        <p class="description">
-            Rkord ermöglicht das einfache Aufzeichnen und Verwalten von Audio-Clips. Ideal für schnelles Notieren von Ideen oder kurzen Interviews. Die Cloud-Synchronisierung hält Ihre Aufnahmen überall verfügbar.
-        </p>
-        <div class="project-images">
-            <img src="rkord-main.png" class="main-image" alt="Rkord Hauptbild">
-
-            <img src="rkord-record.png" class="detail-image" alt="Rkord Aufnahmebild">
-            <img src="rkord-clips.png" class="detail-image" alt="Rkord Clips Übersicht">
+    <!-- ---------------- LITTLETRACK PANEL ---------------- -->
+    <div id="lt-panel" class="panel">
+        <div class="back-btn" onclick="closePanel()">← Zurück</div>
+        <div class="lt-full">
+            <img src="littletrack-main.png" alt="LittleTrack Portfolio">
         </div>
     </div>
-    
-    <footer style="text-align: center; padding: 30px 0; color: #444; font-size: 0.85em; border-top: 1px solid #1a1a20;">
-        &copy; 2025 Rinari Dev Studio | Portfolio
-    </footer>
+
+    <!-- ---------------- RKORD PANEL ---------------- -->
+    <div id="rkord-panel" class="panel">
+        <div class="back-btn" onclick="closePanel()">← Zurück</div>
+        <div class="rkord-three">
+            <img src="rkord-main.png" alt="Rkord Main">
+            <img src="rkord-record.png" alt="Rkord Recording">
+            <img src="rkord-clips.png" alt="Rkord Clips">
+        </div>
+    </div>
+
+    <!-- ---------------- CONTACT PANEL ---------------- -->
+    <div id="contact-panel" class="panel">
+        <div class="back-btn" onclick="closePanel()">← Zurück</div>
+        <div class="contact-info">
+            <a href="https://github.com/rinari-dev-studio" target="_blank">GitHub</a><br>
+            <a href="https://www.linkedin.com" target="_blank">LinkedIn</a><br>
+            <a href="mailto:yourmail@example.com">E-Mail</a>
+        </div>
+    </div>
+
+    <!-- ---------------- JAVASCRIPT ---------------- -->
+    <script>
+        function openPanel(id) {
+            document.getElementById(id).classList.add("active");
+        }
+
+        function closePanel() {
+            document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+        }
+    </script>
 
 </body>
 </html>
