@@ -204,6 +204,39 @@
             text-decoration: none;
             font-size: 20px;
         }
+        /* ---------------- MOBILE FIX ---------------- */
+@media (max-width: 820px) {
+
+    #home-view {
+        flex-direction: column;
+        margin: 60px auto;
+        padding: 0 20px;
+        gap: 30px;
+    }
+
+    .cards {
+        padding-left: 0;
+    }
+
+    .about-bg {
+        display: none;
+    }
+
+    .rkord-three {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rkord-three img {
+        width: 80%;
+        max-width: 320px;
+    }
+
+    .panel {
+        height: 100vh; /* wichtig für Mobile Panels */
+    }
+}
+
     </style>
 </head>
 
