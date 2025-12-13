@@ -177,18 +177,25 @@
         }
 
 /* ---------------- DESKTOP RKORD FIX ---------------- */
-/* Rkord: three images side-by-side */ 
-        .rkord-three { display: flex; 
-                      justify-content: center; 
-                      gap: 30px; margin-top: 
-                          40px; 
-                     } 
-        
-        .rkord-three img { 
-            width: 30%; 
-            max-width: 280px; 
-            border-radius: 16px; 
-        }
+
+
+
+.rkord-three {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;                 /* fester Abstand */
+    margin-top: 40px;
+    padding-bottom: 40px;
+}
+
+.rkord-three img {
+    width: 240px;             /* FIXE Breite = überall identisch */
+    height: auto;
+    border-radius: 16px;
+    object-fit: contain;
+}
+
 
 
 
